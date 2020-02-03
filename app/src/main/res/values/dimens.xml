@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="imagebutton_padding">8dp</dimen>
+    <dimen name="most_played_music_item_height">200dp</dimen>
+    <dimen name="viewpager_next_item_visible">26dp</dimen>
+    <dimen name="viewpager_current_item_horizontal_margin">42dp</dimen>
+    <dimen name="album_item_full_good_size">175dp</dimen>
+    <dimen name="default_activity_top_padding">25dp</dimen>
+    <dimen name="playlist_item_full_good_size">120dp</dimen>
+    <dimen name="size_activity_main_play_button">50dp</dimen>
+    <dimen name="image_music_dimension">375dp</dimen>
+    <dimen name="dialog_min_width">350dp</dimen>
+    <dimen name="artist_ietm_goog_width">150dp</dimen>
+    <dimen name="first_image_music_size">359dp</dimen>
+    <dimen name="second_image_music_size">343dp</dimen>
+    <dimen name="third_image_music_size">327dp</dimen>
+</resources>

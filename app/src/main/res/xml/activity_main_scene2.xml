@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="400">
+
+        <OnClick motion:targetId="@id/view_click_interceptor"
+            motion:clickAction="toggle"/>
+
+        <OnSwipe motion:touchRegionId="@id/background_control"
+            motion:touchAnchorId="@id/background_control" />
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint
+            android:id="@+id/layout_fragment_conatiner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toTopOf="@id/layout_play"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:alpha="1" />
+
+        <Constraint
+            android:id="@+id/view_click_interceptor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            motion:layout_constraintBottom_toBottomOf="@id/background_control" />
+
+
+        <Constraint
+            android:id="@+id/layout_play"
+            android:layout_width="@dimen/size_activity_main_play_button"
+            android:layout_height="@dimen/size_activity_main_play_button"
+            android:background="@android:color/transparent"
+            motion:cardCornerRadius="25dp"
+            motion:layout_constraintBottom_toBottomOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintStart_toStartOf="@id/background_control"/>
+
+        <Constraint
+            android:id="@+id/background_control"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/button_shuffle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_shuffle_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintBottom_toBottomOf="@id/layout_play"
+            motion:layout_constraintEnd_toStartOf="@id/layout_play"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintTop_toTopOf="@id/layout_play" />
+
+        <Constraint
+            android:id="@+id/button_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_repeat_one_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintBottom_toBottomOf="@id/layout_play"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintStart_toEndOf="@id/layout_play"
+            motion:layout_constraintTop_toTopOf="@id/layout_play" />
+
+        <Constraint
+            android:id="@+id/button_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_fast_rewind_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintBottom_toBottomOf="@id/layout_play"
+            motion:layout_constraintEnd_toStartOf="@id/layout_play"
+            motion:layout_constraintStart_toEndOf="@id/button_shuffle"
+            motion:layout_constraintTop_toBottomOf="@id/button_shuffle"
+            motion:layout_constraintTop_toTopOf="@id/layout_play" />
+
+        <Constraint
+            android:id="@+id/button_lyrics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paroles"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toBottomOf="@id/button_previous"
+            android:background="@drawable/button_round_background"
+            android:backgroundTint="#40FFFFFF"
+            android:alpha="0"/>
+
+        <Constraint
+            android:id="@+id/button_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_fast_forward_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintBottom_toBottomOf="@id/layout_play"
+            motion:layout_constraintEnd_toStartOf="@id/button_repeat"
+            motion:layout_constraintStart_toEndOf="@id/layout_play"
+            motion:layout_constraintTop_toBottomOf="@id/button_repeat"
+            motion:layout_constraintTop_toTopOf="@id/layout_play" />
+
+
+
+
+
+
+
+        <Constraint
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/default_activity_top_padding"
+            motion:layout_constraintStart_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_more_horiz_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"
+            android:alpha="0"/>
+
+        <Constraint
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/default_activity_top_padding"
+            android:alpha="0"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            motion:layout_constraintEnd_toStartOf="@id/background_control"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"/>
+
+        <Constraint
+            android:id="@+id/textview_playing_music_titre_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintBottom_toTopOf="@id/textview_playing_music_artiste_music"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            android:text="Dalida"
+            android:textStyle="bold"
+            android:textColor="@color/good_item_color"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <Constraint
+            android:id="@+id/textview_playing_music_artiste_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintBottom_toTopOf="parent"
+            android:singleLine="true"
+            android:text="Soolking"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+        <Constraint
+            android:id="@+id/layout_image_music"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            android:layout_marginTop="@dimen/fab_margin"
+            motion:layout_constraintTop_toBottomOf="@id/textview_playing_music_artiste_music"
+            android:scaleType="centerInside"
+            android:padding="@dimen/fab_margin"
+            android:alpha="0"/>
+
+        <Constraint
+            android:id="@+id/button_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/background_control"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toStartOf="@id/button_like"
+            android:src="@drawable/ic_baseline_playlist_play_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:background="@drawable/button_round_background"
+            motion:layout_constraintHorizontal_chainStyle="packed"
+            android:alpha="0"
+            android:visibility="gone"/>
+
+        <Constraint
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toBottomOf="@id/background_control"
+            motion:layout_constraintStart_toEndOf="@id/button_playlist"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:background="@drawable/button_round_background"
+            android:alpha="0"
+            android:visibility="gone"/>
+
+        <Constraint
+            android:id="@+id/seekbar_playing_music_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/button_lyrics"
+            motion:layout_constraintBottom_toTopOf="@id/button_playlist"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:progress="25"
+            android:alpha="0"
+            android:visibility="gone"/>
+
+        <Constraint
+            android:id="@+id/textview_current_song_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fab_margin"
+            motion:layout_constraintEnd_toStartOf="@id/background_control"
+            motion:layout_constraintTop_toBottomOf="@id/seekbar_playing_music_progress"
+            android:singleLine="true"
+            android:text="05:05"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+        <Constraint
+            android:id="@+id/textview_total_song_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toEndOf="@id/background_control"
+            android:layout_marginEnd="@dimen/fab_margin"
+            motion:layout_constraintTop_toBottomOf="@id/seekbar_playing_music_progress"
+            android:singleLine="true"
+            android:text="25:05"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/layout_fragment_conatiner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0" />
+
+        <Constraint
+            android:id="@+id/view_click_interceptor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            motion:layout_constraintBottom_toBottomOf="@id/background_control" />
+
+        <Constraint
+            android:id="@+id/layout_play"
+            android:layout_width="@dimen/size_activity_main_play_button"
+            android:layout_height="@dimen/size_activity_main_play_button"
+            android:background="@android:color/transparent"
+            motion:cardCornerRadius="25dp"
+            motion:layout_constraintBottom_toBottomOf="@id/layout_image_music"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintStart_toStartOf="@id/background_control"/>
+
+        <Constraint
+            android:id="@+id/background_control"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Constraint
+            android:id="@+id/button_shuffle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_shuffle_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toStartOf="@id/layout_play"
+            motion:layout_constraintTop_toBottomOf="@id/layout_play"
+            motion:layout_constraintHorizontal_bias=".75"/>
+
+        <Constraint
+            android:id="@+id/button_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_repeat_one_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintStart_toEndOf="@id/layout_play"
+            motion:layout_constraintTop_toBottomOf="@id/layout_play"
+            motion:layout_constraintHorizontal_bias=".25"/>
+
+        <Constraint
+            android:id="@+id/button_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_fast_rewind_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintEnd_toStartOf="@id/layout_play"
+            motion:layout_constraintStart_toEndOf="@id/button_shuffle"
+            motion:layout_constraintTop_toBottomOf="@id/button_shuffle"/>
+
+
+        <Constraint
+            android:id="@+id/button_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_fast_forward_24"
+            android:tint="@android:color/transparent"
+            motion:layout_constraintEnd_toStartOf="@id/button_repeat"
+            motion:layout_constraintStart_toEndOf="@id/layout_play"
+            motion:layout_constraintTop_toBottomOf="@id/button_repeat"/>
+
+
+        <Constraint
+            android:id="@+id/button_lyrics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paroles"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toBottomOf="@id/button_previous"
+            android:background="@drawable/button_round_background"
+            android:backgroundTint="#40FFFFFF"
+            android:alpha=".6"/>
+
+
+        <Constraint
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/default_activity_top_padding"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_more_horiz_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"
+            android:alpha="1"/>
+
+        <Constraint
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/default_activity_top_padding"
+            android:alpha="1"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"/>
+
+        <Constraint
+            android:id="@+id/textview_playing_music_titre_music"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/fab_margin"
+            motion:layout_constraintStart_toEndOf="@id/button_back"
+            motion:layout_constraintEnd_toStartOf="@id/menu_button"
+            motion:layout_constraintTop_toTopOf="@id/background_control"
+            android:layout_marginTop="@dimen/default_activity_top_padding"
+            android:singleLine="true"
+            android:text="Dalida"
+            android:textStyle="bold"
+            android:textColor="@color/good_item_color"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <Constraint
+            android:id="@+id/textview_playing_music_artiste_music"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toEndOf="@id/button_back"
+            motion:layout_constraintEnd_toStartOf="@id/menu_button"
+            motion:layout_constraintTop_toBottomOf="@id/textview_playing_music_titre_music"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:singleLine="true"
+            android:text="Soolking"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+        <Constraint
+            android:id="@+id/layout_image_music"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            android:layout_marginTop="@dimen/fab_margin"
+            motion:layout_constraintTop_toBottomOf="@id/textview_playing_music_artiste_music"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/fab_margin"
+            android:alpha="1"/>
+
+        <Constraint
+            android:id="@+id/button_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/background_control"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintEnd_toStartOf="@id/button_like"
+            android:src="@drawable/ic_baseline_playlist_play_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_round_background"
+            motion:layout_constraintHorizontal_chainStyle="packed"
+            android:alpha="1"/>
+
+        <Constraint
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            motion:layout_constraintBottom_toBottomOf="@id/background_control"
+            motion:layout_constraintStart_toEndOf="@id/button_playlist"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/button_round_background"
+            android:alpha="1"/>
+
+        <Constraint
+            android:id="@+id/seekbar_playing_music_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/button_lyrics"
+            motion:layout_constraintBottom_toTopOf="@id/button_playlist"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:progress="100"
+            android:alpha="1"/>
+
+        <Constraint
+            android:id="@+id/textview_current_song_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fab_margin"
+            motion:layout_constraintStart_toStartOf="@id/background_control"
+            motion:layout_constraintTop_toBottomOf="@id/seekbar_playing_music_progress"
+            android:singleLine="true"
+            android:text="05:05"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+        <Constraint
+            android:id="@+id/textview_total_song_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="@id/background_control"
+            android:layout_marginEnd="@dimen/fab_margin"
+            motion:layout_constraintTop_toBottomOf="@id/seekbar_playing_music_progress"
+            android:singleLine="true"
+            android:text="25:05"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+    </ConstraintSet>
+</MotionScene>

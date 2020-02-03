@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_play_album_after"
+        android:title="@string/lire_juste_apres"/>
+
+    <item android:id="@+id/action_add_album_to_playlist"
+        android:title="@string/ajouter_la_liste_de_lecture"/>
+
+    <item android:id="@+id/action_share_album"
+        android:title="@string/partager"/>
+
+    <item android:id="@+id/action_delere_album"
+        android:title="@string/supprimer"/>
+
+</menu>

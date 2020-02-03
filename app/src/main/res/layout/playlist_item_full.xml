@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/playlist_item_full_good_size"
+    app:cardCornerRadius="@dimen/fab_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/checkbox_playlist_item_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/fab_margin"/>
+
+        <ImageView
+            android:id="@+id/imageview_playlist_item_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/playlist_background_1"
+            android:alpha=".7"/>
+
+        <TextView
+            android:id="@+id/imageview_playlist_item_Nom_palylist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Poision"
+            android:textColor="@color/good_item_color"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:maxLines="2"
+            android:padding="8dp"/>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

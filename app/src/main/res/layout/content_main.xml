@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/scene_playing_music">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/activity_main_scene"
+        android:elevation="4dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/background_view"
+            android:background="@android:color/black"/>
+
+
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_more_horiz_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"/>
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_round_background"/>
+
+        <TextView
+            android:id="@+id/textview_playing_music_titre_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="Dalida"
+            android:textStyle="bold"
+            android:textColor="@color/good_item_color"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/textview_playing_music_artiste_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="Soolking"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+        <RelativeLayout
+            android:id="@+id/layout_image_music"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerInside"
+            android:padding="@dimen/fab_margin">
+
+            <ImageView
+                android:src="#FFFFFF"
+                android:alpha=".05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"/>
+
+            <ImageView
+                android:layout_margin="12dp"
+                android:src="#FFFFFF"
+                android:alpha=".06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"/>
+
+            <ImageView
+                android:layout_margin="22dp"
+                android:src="#FFFFFF"
+                android:alpha=".07"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"/>
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/button_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_playlist_play_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:background="@drawable/button_round_background"/>
+
+        <ImageButton
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:tint="@android:color/transparent"
+            android:padding="8dp"
+            android:background="@drawable/button_round_background"/>
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:progress="25"/>
+
+        <TextView
+            android:id="@+id/textview_current_song_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="05:05"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+        <TextView
+            android:id="@+id/textview_total_song_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="25:05"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/good_item_color"
+            android:alpha=".7" />
+
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

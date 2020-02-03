@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/fab_margin">
+
+    <ImageButton
+        android:id="@+id/imagebutton_fragment_all_music_backbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+        android:padding="@dimen/imagebutton_padding"
+        android:background="@drawable/button_round_background"
+        android:layout_marginStart="8dp"
+        android:onClick="navigateBack"/>
+
+    <TextView
+        android:id="@+id/text1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imagebutton_fragment_all_music_backbutton"
+        app:layout_constraintTop_toTopOf="@id/imagebutton_fragment_all_music_backbutton"
+        android:textStyle="bold"
+        android:padding="@dimen/fab_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/musiques"
+        android:textColor="@color/good_item_color" />
+
+    <EditText
+        android:id="@+id/edittext_fragment_all_music_search_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text1"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:hint="@string/rechercher_une_musique_ici"
+        android:textColor="@color/good_item_color"
+        android:background="@drawable/editetxt_background"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="4dp"
+        android:textColorHint="#80FFFFFF"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:paddingEnd="4dp"
+        android:inputType="text|textShortMessage"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_fragment_all_music_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="@dimen/fab_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edittext_fragment_all_music_search_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/music_item"
+        tools:itemCount="10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

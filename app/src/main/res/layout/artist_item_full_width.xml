@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/artist_ietm_goog_width"
+    android:minHeight="@dimen/artist_ietm_goog_width"
+    app:cardCornerRadius="@dimen/fab_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageview_most_played_song_pochette"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:alpha=".1"/>
+
+        <TextView
+            android:paddingStart="@dimen/fab_margin"
+            android:paddingEnd="@dimen/fab_margin"
+            android:id="@+id/textview_most_played_music_titre_musique"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_above="@id/textview_most_palyed_song_item_artist_and_album_names"
+            android:text="Ana Fi Dar"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:alpha=".9"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="center" />
+
+        <TextView
+            android:paddingStart="@dimen/fab_margin"
+            android:paddingEnd="@dimen/fab_margin"
+            android:id="@+id/textview_most_palyed_song_item_artist_and_album_names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_alignParentBottom="true"
+            android:text="Maitre Gims * Ceinture Noire"
+            android:textColor="#FFF"
+            android:alpha=".7"
+            android:layout_marginBottom="8dp"
+            android:gravity="center" />
+
+        <CheckBox
+            android:id="@+id/checkbox_artist_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:clickable="false"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

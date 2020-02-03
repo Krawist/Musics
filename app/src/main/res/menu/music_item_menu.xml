@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_play_music_after"
+        android:title="@string/jouer_apres"/>
+
+    <item android:id="@+id/action_add_music_to_current_playlist"
+        android:title="@string/ajouter_la_liste_de_lecture"/>
+
+    <item android:id="@+id/action_share_music"
+        android:title="@string/partager"/>
+
+    <item android:id="@+id/action_delete_music"
+        android:title="@string/supprimer"/>
+
+    <item android:id="@+id/action_details_music"
+        android:title="@string/details"/>
+
+    <item android:id="@+id/action_add_music_phone_playlist"
+        android:title="@string/ajouter_a_une_playlist"/>
+</menu>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.SelectionFragment"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/default_activity_top_padding"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_fragment_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp"/>
+
+        <Button
+            android:id="@+id/button_fragment_selection_selectionner_tout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/good_item_color"
+            android:text="@string/selectionner_tout"
+            app:layout_constraintStart_toEndOf="@id/checkbox_fragment_selection"
+            app:layout_constraintTop_toTopOf="@id/checkbox_fragment_selection"
+            app:layout_constraintBottom_toBottomOf="@id/checkbox_fragment_selection"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+        <TextView
+            android:id="@+id/textview_fragment_selection_nombre_object"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/good_item_color"
+            android:text="@string/selectionnes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/checkbox_fragment_selection"
+            app:layout_constraintBottom_toBottomOf="@id/checkbox_fragment_selection"
+            android:layout_marginEnd="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/edittext_fragment_selection_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginEnd="12dp"
+        android:paddingStart="4dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:background="@drawable/editetxt_background"
+        android:gravity="center"
+        android:hint="@string/rechercher_un_album_ici"
+        android:inputType="text|textShortMessage"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/good_item_color"
+        android:textColorHint="#80FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagebutton_fragment_album_backbutton" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_fragment_selection_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/fab_margin"
+        tools:listitem="@layout/music_item"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <include layout="@layout/dialog_button_layout"/>
+
+</LinearLayout>

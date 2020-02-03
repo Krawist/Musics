@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@android:color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll">
+
+            <ImageView
+                android:id="@+id/imageview_fragment_detail_album_image_album"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="centerCrop"/>
+
+            <View
+                android:id="@+id/background_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#36000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/imagebutton_home_fragment_drawer_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_round_background"
+                android:padding="@dimen/imagebutton_padding"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+                android:onClick="navigateBack"
+                android:layout_marginTop="@dimen/default_activity_top_padding"/>
+
+            <ImageButton
+                android:id="@+id/imagebutton_home_fragment_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/default_activity_top_padding"
+                android:background="@drawable/button_round_background"
+                android:padding="@dimen/imagebutton_padding"
+                android:src="@drawable/ic_baseline_more_horiz_24" />
+
+            <ImageButton
+                android:id="@+id/floating_button_shuffle_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:background="@drawable/button_round_background"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_fragment_detail_album_image_album"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_baseline_shuffle_24"/>
+
+            <TextView
+                android:id="@+id/textview_fragment_detail_album_nom_artiste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:text="Soolking / 15 Musiques"
+                android:textColor="@color/good_item_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_fragment_detail_album_nom_album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:alpha=".8"
+                android:text="Le fruit du Demon"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/good_item_color"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/textview_fragment_detail_album_nom_artiste"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_fragment_detail_album_list_music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/fab_margin"
+        android:paddingStart="@dimen/fab_margin"
+        tools:listitem="@layout/music_item"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

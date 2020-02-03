@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Activities.MainActivity"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="@dimen/default_activity_top_padding">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            app:layoutDescription="@xml/fragment_album_xml_constraintlayout_scene"
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll">
+
+            <ImageButton
+                android:id="@+id/imagebutton_fragment_album_backbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_background"
+                android:onClick="navigateBack"
+                android:padding="@dimen/imagebutton_padding"
+                android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageButton
+                android:id="@+id/imagebutton_fragment_album_menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_background"
+                android:padding="@dimen/imagebutton_padding"
+                android:src="@drawable/ic_baseline_more_horiz_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/albums"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/good_item_color"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@id/imagebutton_fragment_album_backbutton"
+                app:layout_constraintEnd_toStartOf="@id/imagebutton_fragment_album_menu_button"
+                app:layout_constraintStart_toEndOf="@id/imagebutton_fragment_album_backbutton"
+                app:layout_constraintTop_toTopOf="@id/imagebutton_fragment_album_backbutton" />
+
+            <EditText
+                android:id="@+id/edittext_fragment_album_search_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:layout_marginEnd="12dp"
+                android:paddingStart="4dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:background="@drawable/editetxt_background"
+                android:gravity="center"
+                android:hint="@string/rechercher_un_album_ici"
+                android:inputType="text|textShortMessage"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/good_item_color"
+                android:textColorHint="#80FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imagebutton_fragment_album_backbutton" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_fragment_album_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="@dimen/fab_margin"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/album_item_full"
+        tools:itemCount="10"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:spanCount="2"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

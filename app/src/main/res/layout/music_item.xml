@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/layout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/fab_margin">
+
+            <TextView
+                android:id="@+id/textview_music_item_music_track_number"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fab_margin"
+                android:text="01"
+                android:textColor="#FFF"
+                android:alpha=".9"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="10sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+            <ImageButton
+                android:id="@+id/imagebutton_drag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_dehaze_24"
+                android:background="@drawable/button_round_background"
+                android:alpha=".7"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_music_item_principal_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_toEndOf="@id/layout1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:id="@+id/graph"
+                android:alpha=".9"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_graphic_eq_24"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                android:id="@+id/card1"
+                android:layout_toEndOf="@id/graph"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/imageview_music_item_pochette_music"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textview_music_item_titre_music"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="Dalida"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:alpha=".9"
+                    android:gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/textview_music_item_artiste"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_below="@id/textview_music_item_titre_music"
+                    android:text="Soolking"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:alpha=".7"
+                    android:singleLine="true"/>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/layout45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/imageviwbutton_music_item_menu_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/imagebutton_padding"
+                    android:src="@drawable/ic_baseline_more_horiz_24"
+                    android:background="@drawable/button_round_background"
+                    android:layout_marginEnd="8dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_music_item_checkkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:clickable="false"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_select_musics_to_play"
+        android:title="@string/selectionner_pour_jouer"/>
+
+    <item android:id="@+id/action_select_musics_to_delete"
+        android:title="@string/supprimer"/>
+
+    <item android:id="@+id/action_select_musics_to_share"
+        android:title="@string/partager"/>
+
+    <item android:id="@+id/action_select_musics_to_add_to_playlist"
+        android:title="@string/ajouter_a_une_playlist"/>
+
+</menu>
