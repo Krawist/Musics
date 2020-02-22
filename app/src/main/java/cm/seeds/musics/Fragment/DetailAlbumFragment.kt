@@ -50,9 +50,7 @@ class DetailAlbumFragment : Fragment() {
     private val contentObserver = object : ContentObserver(Handler()){
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            if(model!=null){
-                model.loadmusicOfAlbum(context!!,album!!)
-            }
+            model.loadmusicOfAlbum(context!!,album!!)
         }
     }
 
@@ -92,25 +90,21 @@ class DetailAlbumFragment : Fragment() {
 
     private fun addActionsOnViews() {
         shuffleButton.setOnClickListener(View.OnClickListener {
-            (context as MainActivity).loadMusic(musiques!!.get(0),musiques!!,0,true)
+            (context as MainActivity).loadMusic(musiques[0],musiques,0,true)
         })
     }
 
     private fun configureViewModel() {
         model = MusicsViewModel.getInstance()
-        if(model!=null){
-            model?.loadmusicOfAlbum(context!!,album!!)
-            model?.musicOfAlbum?.observe(this, Observer {
-                musiques = it
-                configureAdapter()
-            })
+        model.loadmusicOfAlbum(context!!,album!!)
+        model.musicOfAlbum.observe(this, Observer {
+            musiques = it
+            configureAdapter()
+        })
 
-            model?.actualMusicPlayingState?.observe(this, Observer {
-                if(it?.currentMusic!=null && it.indexOfPlayingSong!=null){
-                    (musiqueAdapter as MusiqueAdapter).setPlayingMusic(it.currentMusic!!,it.indexOfPlayingSong!!)
-                }
-            })
-        }
+        model.currentMusic.observe(this, Observer {
+            (musiqueAdapter as MusiqueAdapter).setPlayingMusic(it)
+        })
 
         menuButton.setOnClickListener(View.OnClickListener {
             (context as MainActivity).openMenu(
@@ -127,9 +121,9 @@ class DetailAlbumFragment : Fragment() {
 
     private fun configureAdapter() {
         if(musiqueAdapter!=null){
-            musiqueAdapter?.setList(musiques!!)
+            musiqueAdapter?.setList(musiques)
         }else{
-            musiqueAdapter = MusiqueAdapter(context, musiques!!, true, model!!, false)
+            musiqueAdapter = MusiqueAdapter(context, musiques, true, model, false)
         }
 
         val isThat = listsMusique.adapter?.equals(musiqueAdapter)

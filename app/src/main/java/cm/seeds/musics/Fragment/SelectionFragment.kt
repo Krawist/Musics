@@ -47,6 +47,7 @@ class SelectionFragment : Fragment() {
     private var nombreSelectionnes by Delegates.notNull<TextView>()
     private var selectAllButton by Delegates.notNull<Button>()
     private var searchView by Delegates.notNull<EditText>()
+    private var favoriteSongsId by Delegates.notNull<MutableList<Int>>()
 
     companion object {
         const val TYPE_OF_DATA_MUSICS = 1
@@ -64,6 +65,15 @@ class SelectionFragment : Fragment() {
             menuId = it.getInt(MENU_ID)
             typeOfData = it.getInt(TYPE_OF_DATA)
         }
+
+        favoriteSongsId = getFavoriteSong(context!!)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        model.listOfSelectedData = MutableLiveData()
+        model.listOfDataForSelection = MutableLiveData()
+        model.seachData = MutableLiveData()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -140,7 +150,7 @@ class SelectionFragment : Fragment() {
     private fun launchSearch(keyWord: String) {
         when(typeOfData){
             TYPE_OF_DATA_MUSICS ->{
-                model.seachData.value = ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.searchMusics(context!!,keyWord),model.pathOfPochetteAlbum)
+                model.seachData.value = ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.searchMusics(context!!,keyWord),model.pathOfPochetteAlbum,favoriteSongsId)
             }
 
             TYPE_OF_DATA_ALBUMS ->{
@@ -207,7 +217,11 @@ class SelectionFragment : Fragment() {
                     }else{
                         listOfMusiques = mutableListOf()
                         for(playlist in listOfSelectedData){
-                            listOfMusiques.addAll(ProviderUtils.buildListOfPlaylistMusicWithCursor(ProviderUtils.loadMusicsOfPlaylist(context!!,playlist),model.pathOfPochetteAlbum))
+                            listOfMusiques.addAll(ProviderUtils.buildListOfPlaylistMusicWithCursor(
+                                ProviderUtils.loadMusicsOfPlaylist(context!!,playlist),
+                                model.pathOfPochetteAlbum,
+                                favoriteSongsId
+                            ))
                         }
                     }
                 }else{
@@ -220,7 +234,7 @@ class SelectionFragment : Fragment() {
                 if(listOfSelectedData!=null && listOfSelectedData.isNotEmpty()){
                     listOfMusiques = mutableListOf()
                     for(album in listOfSelectedData){
-                        listOfMusiques.addAll(ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.loadMusicsOfAlbums(context!!,album),model.pathOfPochetteAlbum))
+                        listOfMusiques.addAll(ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.loadMusicsOfAlbums(context!!,album),model.pathOfPochetteAlbum,favoriteSongsId))
                     }
                 }else{
                     showToast(context!!,getString(R.string.veuillez_un_ou_plusieurs_element))
@@ -232,7 +246,7 @@ class SelectionFragment : Fragment() {
                 if(listOfSelectedData!=null && listOfSelectedData.isNotEmpty()){
                     listOfMusiques = mutableListOf()
                     for(artiste in listOfSelectedData){
-                        listOfMusiques.addAll(ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.loadMusicsOfArtist(context!!,artiste),model.pathOfPochetteAlbum))
+                        listOfMusiques.addAll(ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.loadMusicsOfArtist(context!!,artiste),model.pathOfPochetteAlbum,favoriteSongsId))
                     }
                 }else{
                     showToast(context!!,getString(R.string.veuillez_un_ou_plusieurs_element))
@@ -346,6 +360,10 @@ class SelectionFragment : Fragment() {
 
     private fun configureViewModel() {
         model = MusicsViewModel.getInstance()
+
+        model.listOfSelectedData = MutableLiveData()
+
+        model.seachData = MutableLiveData()
 
         data = model.listOfDataForSelection.value!!
 

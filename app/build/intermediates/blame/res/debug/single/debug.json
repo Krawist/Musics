@@ -276,6 +276,10 @@
         "source": "C:\\Users\\ASUS\\Documents\\MesProjets\\AndroidStudioProjects\\Musics\\app\\src\\main\\res\\drawable\\ic_baseline_keyboard_arrow_right_24.xml"
     },
     {
+        "merged": "C:\\Users\\ASUS\\Documents\\MesProjets\\AndroidStudioProjects\\Musics\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_favorite_24.xml.flat",
+        "source": "C:\\Users\\ASUS\\Documents\\MesProjets\\AndroidStudioProjects\\Musics\\app\\src\\main\\res\\drawable\\ic_baseline_favorite_24.xml"
+    },
+    {
         "merged": "C:\\Users\\ASUS\\Documents\\MesProjets\\AndroidStudioProjects\\Musics\\app\\build\\intermediates\\res\\merged\\debug\\drawable_playlist_background_1.xml.flat",
         "source": "C:\\Users\\ASUS\\Documents\\MesProjets\\AndroidStudioProjects\\Musics\\app\\src\\main\\res\\drawable\\playlist_background_1.xml"
     },

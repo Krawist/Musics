@@ -171,11 +171,11 @@ class ProviderUtils {
             return context.contentResolver.query(MediaStore.Audio.Playlists.Members.getContentUri("external", playlist.idPlaylist.toLong()), fieldToget,selection,selectionArgs, MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
         }
 
-        fun buildListOfMusicWithCursor(cursor: Cursor?, pathOfSongAlbumArt:MutableMap<Int, String>): MutableList<Musique> {
+        fun buildListOfMusicWithCursor(cursor: Cursor?, pathOfSongAlbumArt:MutableMap<Int, String>, favoriteSongsId : MutableList<Int>): MutableList<Musique> {
             val listOfSong = mutableListOf<Musique>()
             if(cursor!=null){
                 while (!cursor.isLast){
-                    val musique =buildMusiqueWithCursor(cursor, pathOfSongAlbumArt)
+                    val musique =buildMusiqueWithCursor(cursor, pathOfSongAlbumArt, favoriteSongsId)
                     if(musique!=null){
                         listOfSong.add(musique)
                     }
@@ -184,12 +184,13 @@ class ProviderUtils {
             return listOfSong
         }
 
-         fun buildMusiqueWithCursor(cursor: Cursor?, pathOfSongAlbumArt: MutableMap<Int, String>): Musique? {
+         fun buildMusiqueWithCursor(cursor: Cursor?, pathOfSongAlbumArt: MutableMap<Int, String>, favoriteSongsId: MutableList<Int>): Musique? {
              if(cursor!=null) {
                  cursor.moveToNext()
                  val albumId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+                 val songId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
                  return Musique(
-                     cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media._ID)),
+                     songId,
                      cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)),
                      cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)),
                      cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)),
@@ -204,16 +205,21 @@ class ProviderUtils {
                      ),
                      cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.TRACK)),
                      cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE)),
-                     if (Build.VERSION.SDK_INT >= 29) cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.RELATIVE_PATH)) else null
+                     if (Build.VERSION.SDK_INT >= 29) cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.RELATIVE_PATH)) else null,
+                     favoriteSongsId.contains(element = songId)
                  )
              }else return null
         }
 
-        fun buildListOfPlaylistMusicWithCursor(cursor: Cursor?, pathOfSongAlbumArt:MutableMap<Int, String>): MutableList<Musique> {
+        fun buildListOfPlaylistMusicWithCursor(
+            cursor: Cursor?,
+            pathOfSongAlbumArt: MutableMap<Int, String>,
+            favoriteSOngsId: MutableList<Int>
+        ): MutableList<Musique> {
             val listOfSong = mutableListOf<Musique>()
             if(cursor!=null){
                 while (cursor.moveToNext()){
-                    listOfSong.add(buildPlaylistMusicWithCursor(cursor, pathOfSongAlbumArt))
+                    listOfSong.add(buildPlaylistMusicWithCursor(cursor, pathOfSongAlbumArt,favoriteSOngsId))
                 }
             }
             return listOfSong
@@ -221,11 +227,13 @@ class ProviderUtils {
 
         private fun buildPlaylistMusicWithCursor(
             cursor: Cursor,
-            pathOfSongAlbumArt: MutableMap<Int, String>
+            pathOfSongAlbumArt: MutableMap<Int, String>,
+            favoriteSOngsId: MutableList<Int>
         ): Musique {
             val albumId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+            val songId = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.AUDIO_ID))
             val musique = Musique(
-                cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.AUDIO_ID)),
+                songId,
                 cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.ALBUM_ID)),
                 cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.ARTIST_ID)),
                 cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.TITLE)),
@@ -240,7 +248,8 @@ class ProviderUtils {
                 ),
                 cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.TRACK)),
                 cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.SIZE)),
-                if (Build.VERSION.SDK_INT >= 29) cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.VOLUME_NAME)) else null
+                if (Build.VERSION.SDK_INT >= 29) cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Playlists.Members.VOLUME_NAME)) else null,
+                favoriteSOngsId.contains(element = songId)
             )
             return musique
         }

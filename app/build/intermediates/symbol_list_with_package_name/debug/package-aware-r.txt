@@ -1589,6 +1589,7 @@ drawable headphones_black_and_white
 drawable ic_baseline_dehaze_24
 drawable ic_baseline_fast_forward_24
 drawable ic_baseline_fast_rewind_24
+drawable ic_baseline_favorite_24
 drawable ic_baseline_favorite_border_24
 drawable ic_baseline_graphic_eq_24
 drawable ic_baseline_keyboard_arrow_left_24
@@ -2102,6 +2103,7 @@ id textview_home_fragment_album_text
 id textview_home_fragment_most_played_music
 id textview_home_fragment_music_text
 id textview_home_fragment_playlist_text
+id textview_menu_bottom_sheet_selected_item_name
 id textview_menu_item_title
 id textview_most_palyed_song_item_artist_and_album_names
 id textview_most_played_music_titre_musique

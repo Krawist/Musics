@@ -73,12 +73,12 @@ class MusiqueAdapter(
         holder.bindData(musiques[position],position)
     }
 
-    fun setPlayingMusic(currentMusic: Musique, indexOfPlayingSong: Int) {
-        if(lastPlayingMusic?.idMusique!=currentMusic.idMusique){
+    fun setPlayingMusic(currentMusic: Musique) {
+        if(currentMusic.idMusique!=lastPlayingMusic?.idMusique){
             lastPlayingMusic = currentMusic
-            notifyItemChanged(indexOfLastPlayingSong)
-            indexOfLastPlayingSong = indexOfPlayingSong
-            notifyItemChanged(indexOfLastPlayingSong)
+            musiques.forEachIndexed { index, musique ->
+                notifyItemChanged(index)
+            }
         }
     }
 
@@ -148,7 +148,7 @@ class MusiqueAdapter(
                             (context as MainActivity).togglePlayPause()
                         })*/
 
-            principalBackground.setOnClickListener(View.OnClickListener {
+            itemView.setOnClickListener(View.OnClickListener {
                 (context as MainActivity).loadMusic(musique, musiques, position, false)
             })
 

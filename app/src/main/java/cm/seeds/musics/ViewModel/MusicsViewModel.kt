@@ -2,18 +2,13 @@ package cm.seeds.musics.ViewModel
 
 import android.app.Application
 import android.content.Context
-import android.database.ContentObserver
-import android.net.Uri
-import android.os.Handler
-import android.provider.MediaStore
 import android.support.v4.media.session.PlaybackStateCompat
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import cm.seeds.musics.DataModels.*
 import cm.seeds.musics.Helper.*
 import com.google.gson.Gson
+import kotlin.properties.Delegates
 
 class MusicsViewModel(application: Application, val context: Context) : AndroidViewModel(application) {
 
@@ -28,21 +23,18 @@ class MusicsViewModel(application: Application, val context: Context) : AndroidV
     var actualMusicPlayingState : MutableLiveData<ActualMusicPlayingState> = MutableLiveData()
     var seachData : MutableLiveData<MutableList<*>> = MutableLiveData()
 
-    /* */
-/*    val playingMusic : MutableLiveData<Musique> = MutableLiveData()
-    val shuffleMode : MutableLiveData<Boolean> = MutableLiveData()
-    val repeatMode : MutableLiveData<Int> = MutableLiveData()
-    val playingQueue : MutableLiveData<MutableList<Musique>> = MutableLiveData()
-    val originalPlayingQueue : MutableLiveData<MutableLiveData<Musique>> = MutableLiveData()*/
-
-
     var listOfDataForSelection : MutableLiveData<List<*>> = MutableLiveData()
     var listOfSelectedData : MutableLiveData<MutableList<*>> = MutableLiveData()
 
     var pathOfPochetteAlbum = mutableMapOf<Int, String>()
     var pathOfArtistsAlbumsArt = mutableMapOf<Int, MutableList<String>>()
 
+    val currentMusic : MutableLiveData<Musique> = MutableLiveData()
+
+    var favoriteSOngsId by Delegates.notNull<MutableList<Int>>()
+
     init {
+        favoriteSOngsId = getFavoriteSong(context)
         refreshData()
         initiActualPlayingState()
         instance = if(instance==null) this else instance
@@ -50,8 +42,8 @@ class MusicsViewModel(application: Application, val context: Context) : AndroidV
 
     fun refreshData() {
         setAllAlbums(loadAlbums(context,pathOfPochetteAlbum,pathOfArtistsAlbumsArt))
-        setAllMusics(loadMusics(context,pathOfPochetteAlbum))
-        setBestMusics(loadMusics(context,pathOfPochetteAlbum))
+        setAllMusics(loadMusics(context,pathOfPochetteAlbum,favoriteSOngsId))
+        setBestMusics(loadMusics(context,pathOfPochetteAlbum,favoriteSOngsId))
         setAllPLaylist(loadPlaylists(context))
         setAllArtistes(loadArtist(context,pathOfArtistsAlbumsArt))
     }
@@ -60,7 +52,8 @@ class MusicsViewModel(application: Application, val context: Context) : AndroidV
         val initialActualMusicPlayingState = ActualMusicPlayingState(null,null,false,PlaybackStateCompat.REPEAT_MODE_NONE,false,0,null,null)
         val gson = Gson()
         val baseActualPlayerState = gson.toJson(initialActualMusicPlayingState)
-        actualMusicPlayingState.value = gson.fromJson(context.getSharedPreferences(ACTUAL_PLAYER_STATE,Context.MODE_PRIVATE).getString(ACTUAL_PLAYER_STATE,baseActualPlayerState),ActualMusicPlayingState::class.java)
+        val actual = gson.fromJson(context.getSharedPreferences(ACTUAL_PLAYER_STATE,Context.MODE_PRIVATE).getString(ACTUAL_PLAYER_STATE,baseActualPlayerState),ActualMusicPlayingState::class.java)
+        actualMusicPlayingState.value = actual
     }
 
     companion object{
@@ -81,15 +74,15 @@ class MusicsViewModel(application: Application, val context: Context) : AndroidV
     }
 
     fun loadmusicOfAlbum (context: Context, album: Album) {
-        musicOfAlbum.value = loadAlbumMusics(context, pathOfPochetteAlbum, album)
+        musicOfAlbum.value = loadAlbumMusics(context, pathOfPochetteAlbum, album,favoriteSOngsId)
     }
 
     fun loadmusicOfPlaylist (context: Context, playlist: Playlist) {
-        musicOfPlaylist.value = loadPlaylistMusics(context, pathOfPochetteAlbum, playlist)
+        musicOfPlaylist.value = loadPlaylistMusics(context, pathOfPochetteAlbum, playlist,favoriteSOngsId)
     }
 
     fun loadmusicOfArtist (context: Context, artiste: Artiste) {
-        musicOfArtist.value = loadArtistMusics(context, pathOfPochetteAlbum, artiste)
+        musicOfArtist.value = loadArtistMusics(context, pathOfPochetteAlbum, artiste,favoriteSOngsId)
     }
 
     private fun setAllAlbums(list: MutableList<Album>?){

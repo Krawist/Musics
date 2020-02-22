@@ -14,5 +14,6 @@ data class Musique(val idMusique: Int,
               val path: String?,
               val track: Int,
               val size: Long,
-               val musicRelativePath: String?): Serializable{
+               val musicRelativePath: String?,
+               var isFavorite : Boolean = false): Serializable{
 }

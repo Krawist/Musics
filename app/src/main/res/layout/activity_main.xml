@@ -85,7 +85,7 @@
                 android:layout_height="@dimen/size_activity_main_play_button"
                 android:layout_centerInParent="true"
                 android:src="@android:color/white"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
 
             <View
                 android:layout_width="match_parent"
@@ -109,10 +109,11 @@
             android:background="@drawable/button_round_background"
             android:padding="8dp"
             android:src="@drawable/ic_baseline_shuffle_24"
-            android:tint="@android:color/transparent"
+            android:tint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="@id/layout_play"
             app:layout_constraintEnd_toStartOf="@id/layout_play"
             app:layout_constraintStart_toStartOf="parent"
+            android:alpha=".3"
             app:layout_constraintTop_toTopOf="@id/layout_play" />
 
         <ImageButton
@@ -122,9 +123,10 @@
             android:background="@drawable/button_round_background"
             android:padding="8dp"
             android:src="@drawable/ic_baseline_repeat_one_24"
-            android:tint="@android:color/transparent"
+            android:tint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="@id/layout_play"
             app:layout_constraintEnd_toEndOf="parent"
+            android:alpha=".3"
             app:layout_constraintStart_toEndOf="@id/layout_play"
             app:layout_constraintTop_toTopOf="@id/layout_play" />
 
@@ -289,7 +291,7 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/button_playlist"
             android:src="@drawable/ic_baseline_favorite_border_24"
-            android:tint="@android:color/transparent"
+            android:tint="@color/colorAccent"
             android:padding="8dp"
             android:background="@drawable/button_round_background"
             android:alpha="0"/>

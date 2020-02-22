@@ -89,10 +89,8 @@ class HomeFragment : Fragment() {
             configureAdapterMusique()
         })
 
-        model.actualMusicPlayingState.observe(this, Observer {
-            if(it?.currentMusic != null && it.indexOfPlayingSong!=null){
-                musiqueAdapter?.setPlayingMusic(it.currentMusic!!,it.indexOfPlayingSong!!)
-            }
+        model.currentMusic.observe(this, Observer {
+            (musiqueAdapter as MusiqueAdapter).setPlayingMusic(it)
         })
 
     }

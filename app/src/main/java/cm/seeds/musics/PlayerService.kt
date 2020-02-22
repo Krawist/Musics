@@ -100,15 +100,21 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
     private var seekbarHandler = Handler()
     private var playingNotification : PlayingNotification? = null
     private var actualMusicPlayingState : ActualMusicPlayingState? = null
-    private var updateUserUiInterface : UpdateUserUi? = null
+    private var uiListener : UpdateUserUi? = null
 
     interface UpdateUserUi {
-        fun updateUi(actualMusicPlayingState : ActualMusicPlayingState)
+        fun setPlayingSongTime(playingSongTime : Long)
+        fun setPlayingSong(currentSong : Musique)
+        fun setPlayingQueue(playingQueue : MutableList<Musique>)
+        fun setIndexOfPlayingSong(indexOfPlayingSong : Int)
+        fun setShuffle(isShuffle : Boolean)
+        fun setRepeatMode(repeatMode: Int)
+        fun setIsPlaying(isPlaying : Boolean)
     }
 
 
-    public fun setUpdateUserUiInterface(listener : UpdateUserUi){
-        this.updateUserUiInterface = listener
+    fun setUpdateUserUiInterface(listener : UpdateUserUi){
+        this.uiListener = listener
     }
 
     override fun onCreate() {
@@ -206,11 +212,12 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
         return Service.START_NOT_STICKY
     }
 
-    public fun getActualMusicPlayingState() : ActualMusicPlayingState = actualMusicPlayingState!!
+    fun getActualMusicPlayingState() : ActualMusicPlayingState = actualMusicPlayingState!!
 
     private fun stop() {
         abandonFocusOnAudioOutput()
         actualMusicPlayingState?.isPlaying = false
+        uiListener?.setIsPlaying(false)
         registerReceiver(false)
         updateMediaSession()
         playingNotification?.stop()
@@ -226,14 +233,16 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
 
     private fun preparePlaying() {
         loadMusic()
-        seetTo(if(actualMusicPlayingState!=null) actualMusicPlayingState?.playingSongTimeInMilli!! else 0)
+        val currentSongTime = if(actualMusicPlayingState!=null) actualMusicPlayingState?.playingSongTimeInMilli!! else 0
+        seetTo(currentSongTime)
+        uiListener?.setPlayingSongTime(currentSongTime.toLong())
     }
 
     fun seetTo(newPosition: Int) {
         playback?.seekTo(newPosition)
     }
 
-    public fun playPreviousSong() {
+    fun playPreviousSong() {
         val indexPreviousPosition = getPreviousPosition()
         if(indexPreviousPosition!=null){
             updatePosition(indexPreviousPosition)
@@ -282,20 +291,27 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
         if(newPosition>=0 && newPosition<getPlayingQueueSize()){
             actualMusicPlayingState?.indexOfPlayingSong = newPosition
             actualMusicPlayingState?.currentMusic = actualMusicPlayingState!!.playingQueue!![newPosition]
+
+            uiListener?.setIndexOfPlayingSong(newPosition)
+            uiListener?.setPlayingSong(actualMusicPlayingState!!.playingQueue!![newPosition])
             loadMusic()
         }
     }
 
     fun getPlayingQueueSize(): Int{
-        return if(getPlayingQueue()!=null){
-            getPlayingQueue()?.size!!
+
+        return getPlayingQueue().size
+
+/*        return if(getPlayingQueue()!=null){
+
         }else{
             0
-        }
+        }*/
     }
 
     private fun setRepeatMode(repeatMode: Int) {
         actualMusicPlayingState?.repeatMode = repeatMode
+        uiListener?.setRepeatMode(repeatMode)
     }
 
     private fun updatePlayListPreference() {
@@ -310,36 +326,37 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
             .apply()
     }
 
-    private fun getPlayingQueue(): MutableList<Musique>? {
-        if(actualMusicPlayingState!=null){
-            return actualMusicPlayingState?.playingQueue
+    private fun getPlayingQueue(): MutableList<Musique> {
+        if(actualMusicPlayingState!=null && actualMusicPlayingState?.playingQueue!=null){
+            return actualMusicPlayingState?.playingQueue!!
         }
 
-        return null
+        return emptyList<Musique>().toMutableList()
     }
 
     private fun initialisePlayingQueue() {
-        if(getOriginalPlayList()!=null){
+        if(getOriginalPlayList().isNotEmpty()){
             val isShuffleMode: Boolean = getShuffleMode()
             if (isShuffleMode) {
                 shuffleOriginalList()
             } else {
-                actualMusicPlayingState?.playingQueue = getOriginalPlayList()!!.toMutableList()
+                actualMusicPlayingState?.playingQueue = getOriginalPlayList().toMutableList()
+                uiListener?.setPlayingQueue(getOriginalPlayList().toMutableList())
             }
         }
     }
 
-    private fun getOriginalPlayList(): MutableList<Musique>? {
-        if(actualMusicPlayingState!=null){
-            return actualMusicPlayingState?.originalPlayingList
+    private fun getOriginalPlayList(): MutableList<Musique> {
+        if(actualMusicPlayingState!=null && actualMusicPlayingState?.originalPlayingList!=null){
+            return actualMusicPlayingState?.originalPlayingList!!
         }
 
-        return null
+        return emptyList<Musique>().toMutableList()
     }
 
     private fun shuffleOriginalList() {
-        if(getOriginalPlayList()!=null){
-            val list: MutableList<Musique> = getOriginalPlayList()!!.toMutableList()
+        if(getOriginalPlayList().isNotEmpty()){
+            val list: MutableList<Musique> = getOriginalPlayList().toMutableList()
             val newPlayingQueue: MutableList<Musique> = ArrayList()
 
             val m = list[getPositionOfSongToPlay()]
@@ -349,6 +366,9 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
             newPlayingQueue.addAll(list)
             actualMusicPlayingState?.indexOfPlayingSong = 0
             actualMusicPlayingState?.playingQueue = newPlayingQueue
+
+            uiListener?.setIndexOfPlayingSong(0)
+            uiListener?.setPlayingQueue(newPlayingQueue)
         }
     }
 
@@ -371,6 +391,7 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
     fun loadMusic() {
         val musique = getCurrentSong()
         if (musique != null) {
+            uiListener?.setPlayingSong(musique)
             playback?.setDataSource(getCurrentSong()!!)
             try {
                 if (getCurrentSong()?.pochette != null) {
@@ -421,17 +442,17 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
 
     public fun isLastTrack() : Boolean {
         return if(getPlayingQueueSize()>0){
-            getIndexOfPlayingSong() == getOriginalPlayList()?.size!! - 1
+            getIndexOfPlayingSong() == getOriginalPlayList().size - 1
         }else {
             false
         }
     }
 
-    public fun getPlayingSongDuration() : Int{
+    fun getPlayingSongDuration() : Int{
         return playback?.getDuration()!!
     }
 
-    public fun getRepeatMode() : Int {
+    fun getRepeatMode() : Int {
         return actualMusicPlayingState?.repeatMode!!
     }
 
@@ -442,7 +463,7 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
             becomingNoisyReceiverRegistered = false
         }
         mediaSession?.isActive = false
-        quit();
+        quit()
         releaseResources()
     }
 
@@ -456,12 +477,15 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
             SHUFFLE_MODE_ALL,
             SHUFFLE_MODE_GROUP -> {
                 actualMusicPlayingState?.isShuffle = true
-                    shuffleOriginalList()
+                uiListener?.setShuffle(true)
+                shuffleOriginalList()
             }
 
             SHUFFLE_MODE_INVALID, SHUFFLE_MODE_NONE -> {
                 actualMusicPlayingState?.isShuffle = false
-                actualMusicPlayingState?.playingQueue = getOriginalPlayList()!!
+                uiListener?.setShuffle(false)
+                actualMusicPlayingState?.playingQueue = getOriginalPlayList()
+                uiListener?.setPlayingQueue(getOriginalPlayList())
             }
         }
     }
@@ -595,6 +619,7 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
                     isLoadingLooping = false
                     updateMediaSession()
                     actualMusicPlayingState?.isPlaying = true
+                    uiListener?.setIsPlaying(true)
                     mediaSession?.isActive = true
                     updateNotification()
                     registerReceiver(true)
@@ -623,11 +648,11 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
     }
 
     private fun updateMediaSession() {
-        mediaSession?.setActive(isPlaying());
+        mediaSession?.isActive = isPlaying()
 
-        updateMediaSessionMetaData();
+        updateMediaSessionMetaData()
 
-        updateMediaSessionPlaybackState();
+        updateMediaSessionPlaybackState()
     }
 
     private fun updateMediaSessionPlaybackState() {
@@ -666,7 +691,7 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
                 )
                 .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, bitmap)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                metaData.putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, getPlayingQueue()?.size?.toLong()!!)
+                metaData.putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, getPlayingQueueSize().toLong())
             }
             mediaSession?.setMetadata(metaData.build())
         } else {
@@ -678,12 +703,13 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
         return if(Build.VERSION.SDK_INT>=26){
             audioManager?.requestAudioFocus(focusRequest!!)==AudioManager.AUDIOFOCUS_REQUEST_GRANTED
         }else{
-            (audioManager?.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
+            (audioManager?.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
         }
     }
 
     fun pause() {
         actualMusicPlayingState?.isPlaying = false
+        uiListener?.setIsPlaying(false)
         playback?.pause()
         updateMediaSession()
         updateNotification()
@@ -691,99 +717,95 @@ class PlayerService() : MediaBrowserServiceCompat(), AudioManager.OnAudioFocusCh
     }
 
     fun addSongs(position : Int, listOfSongs : MutableList<Musique>){
-        if(getPlayingQueue()!=null){
+        if(getPlayingQueue().isNotEmpty()){
             if(1==getPlayingQueueSize()){
-                getPlayingQueue()?.addAll(listOfSongs)
+                getPlayingQueue().addAll(listOfSongs)
                 notifyPlaylistChange()
                 showToast(this,getString(R.string.la_liste_sera_joue_apres_le_song_en_cours))
             }else{
-                getPlayingQueue()?.addAll(position, listOfSongs)
+                getPlayingQueue().addAll(position, listOfSongs)
                 notifyPlaylistChange()
                 showToast(this,getString(R.string.la_liste_sera_joue_apres_le_song_en_cours))
             }
+        }else{
+            getPlayingQueue().addAll(listOfSongs)
         }
 
-        if(getOriginalPlayList()!=null){
-            getOriginalPlayList()?.addAll(listOfSongs)
-        }
+        getOriginalPlayList().addAll(listOfSongs)
 
         notifyPlaylistChange()
+
+        uiListener?.setPlayingQueue(getPlayingQueue())
     }
 
     fun addSongs(listOfSongs: MutableList<Musique>){
-        if(getPlayingQueue()!=null){
-            getPlayingQueue()?.addAll(listOfSongs)
-            showToast(this,getString(R.string.la_liste_sera_joue_apres_celle_en_cours))
-        }
+        getPlayingQueue().addAll(listOfSongs)
+        showToast(this,getString(R.string.la_liste_sera_joue_apres_celle_en_cours))
 
-        if(getOriginalPlayList()!=null){
-            getOriginalPlayList()?.addAll(listOfSongs)
-        }
+        getOriginalPlayList().addAll(listOfSongs)
 
         notifyPlaylistChange()
+
+        uiListener?.setPlayingQueue(getPlayingQueue())
     }
 
     fun addSong(position : Int, musique : Musique){
-        if(getPlayingQueue()!=null){
-            if(1>=getPlayingQueueSize()){
-                if(getPlayingQueueSize()==0){
-                    getPlayingQueue()?.add(musique)
-                    showToast(this,"Ajouté")
-                }else{
-                    if(getPlayingQueue()?.get(0)?.idMusique!=musique.idMusique){
-                        getPlayingQueue()?.add(musique)
-                        showToast(this,getString(R.string.le_song_sera_jouer_juste_apres))
-                    }
-                }
+        if(getPlayingQueueSize()<=1){
+            if(getPlayingQueueSize()==0){
+                getPlayingQueue().add(musique)
+                showToast(this,"Ajouté")
             }else{
-                var itemPositionIfInside = -1
-                getPlayingQueue()?.forEachIndexed { index, music ->
-                    if(music.idMusique==musique.idMusique){
-                        itemPositionIfInside = index
-                    }
+                if(getPlayingQueue()[0].idMusique!=musique.idMusique){
+                    getPlayingQueue().add(musique)
+                    showToast(this,getString(R.string.le_song_sera_jouer_juste_apres))
                 }
-                if(itemPositionIfInside>-1){
-                    getPlayingQueue()?.removeAt(itemPositionIfInside)
-
-                }
-                getPlayingQueue()?.add(position, musique)
-                showToast(this,getString(R.string.le_song_sera_jouer_juste_apres))
             }
+        }else{
+            var itemPositionIfInside = -1
+            getPlayingQueue().forEachIndexed { index, music ->
+                if(music.idMusique==musique.idMusique){
+                    itemPositionIfInside = index
+                }
+            }
+            if(itemPositionIfInside>-1){
+                getPlayingQueue().removeAt(itemPositionIfInside)
+
+            }
+            getPlayingQueue().add(position, musique)
+            showToast(this,getString(R.string.le_song_sera_jouer_juste_apres))
         }
 
-        if(getOriginalPlayList()!=null){
-            getOriginalPlayList()?.add(musique)
-        }
+        getOriginalPlayList().add(musique)
 
         notifyPlaylistChange()
+
+        uiListener?.setPlayingQueue(getPlayingQueue())
 
         /*getOriginalPlayList()?.add(musique)
 notifyPlaylistChange()*/
     }
 
     fun addSong(musique: Musique){
-        if(getPlayingQueue()!=null){
-            var itemPositionIfInside = -1
-            if(getPlayingQueueSize()>0){
-                getPlayingQueue()?.forEachIndexed { index, music ->
-                    if(music.idMusique==musique.idMusique){
-                        itemPositionIfInside = index
-                    }
+        var itemPositionIfInside = -1
+        if(getPlayingQueueSize()>0){
+            getPlayingQueue().forEachIndexed { index, music ->
+                if(music.idMusique==musique.idMusique){
+                    itemPositionIfInside = index
                 }
             }
-            if(itemPositionIfInside>-1){
-                getPlayingQueue()?.removeAt(itemPositionIfInside)
-            }
-
-            getPlayingQueue()?.add( musique)
-            showToast(this,getString(R.string.le_song_sera_joue_juste_apres_la_liste_en_cours))
+        }
+        if(itemPositionIfInside>-1){
+            getPlayingQueue().removeAt(itemPositionIfInside)
         }
 
-        if(getOriginalPlayList()!=null){
-            getOriginalPlayList()?.add(musique)
-        }
+        getPlayingQueue().add( musique)
+        showToast(this,getString(R.string.le_song_sera_joue_juste_apres_la_liste_en_cours))
+
+        getOriginalPlayList().add(musique)
 
         notifyPlaylistChange()
+
+        uiListener?.setPlayingQueue(getPlayingQueue())
     }
 
     private fun notifyPlaylistChange() {
@@ -812,23 +834,25 @@ notifyPlaylistChange()*/
     inner class UpdateSeekBarPosition() : Runnable{
         override fun run() {
             actualMusicPlayingState?.playingSongTimeInMilli = getSongProgressMillis()
-            if(updateUserUiInterface!=null) run {
-                updateUserUiInterface?.updateUi(actualMusicPlayingState!!)
+            uiListener?.setPlayingSongTime(getSongProgressMillis().toLong())
 
-                val currentState = actualMusicPlayingState?.isPlaying
-
-                actualMusicPlayingState?.isPlaying = false
-                getSharedPreferences(ACTUAL_PLAYER_STATE, Context.MODE_PRIVATE).edit()
-                    .putString(ACTUAL_PLAYER_STATE,Gson().toJson(actualMusicPlayingState))
-                    .apply()
-
-                actualMusicPlayingState?.isPlaying = currentState ?: false
-            }
+            savePlayingMusicState()
 
             if(isPlaying())
                 seekbarHandler.postDelayed(this, SEEK_BAR_POSITION_REFRESH_DELAY)
             else
                 seekbarHandler.removeCallbacks(this)
         }
+    }
+
+    private fun savePlayingMusicState() {
+        val currentState = actualMusicPlayingState?.isPlaying
+
+        actualMusicPlayingState?.isPlaying = false
+        getSharedPreferences(ACTUAL_PLAYER_STATE, Context.MODE_PRIVATE).edit()
+            .putString(ACTUAL_PLAYER_STATE, Gson().toJson(actualMusicPlayingState))
+            .apply()
+
+        actualMusicPlayingState?.isPlaying = currentState ?: false
     }
 }

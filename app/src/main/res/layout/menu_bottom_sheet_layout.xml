@@ -6,9 +6,27 @@
     android:background="@android:color/black">
 
     <LinearLayout
-        android:id="@+id/linearlayout_menu_bottom_sheet_menu_item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textview_menu_bottom_sheet_selected_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fab_margin"
+            android:textColor="#03A9F4"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/linearlayout_menu_bottom_sheet_menu_item_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </ScrollView>

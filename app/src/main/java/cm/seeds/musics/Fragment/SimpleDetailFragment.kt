@@ -28,10 +28,12 @@ import cm.seeds.musics.DataModels.Artiste
 import cm.seeds.musics.DataModels.Musique
 import cm.seeds.musics.DataModels.Playlist
 import cm.seeds.musics.Helper.ProviderUtils
+import cm.seeds.musics.Helper.getFavoriteSong
 import cm.seeds.musics.Helper.numberOfItemInLine
 import cm.seeds.musics.R
 import cm.seeds.musics.ViewModel.MusicsViewModel
 import com.google.android.material.appbar.AppBarLayout
+import kotlin.properties.Delegates
 
 /**
  * A simple [Fragment] subclass.
@@ -68,6 +70,8 @@ class SimpleDetailFragment : Fragment() {
     private var artiste : Artiste? = null
     private var playlist : Playlist? = null
 
+    private var favoriteSongsId by Delegates.notNull<MutableList<Int>>()
+
     private val contentObserver = object : ContentObserver(Handler()){
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
@@ -90,6 +94,7 @@ class SimpleDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         whatToShow = arguments?.getString(WHAT_TO_SEE)
+        favoriteSongsId = getFavoriteSong(context!!)
 
         when(whatToShow){
             PLAYLIST -> {
@@ -241,7 +246,7 @@ class SimpleDetailFragment : Fragment() {
         when(whatToShow){
 
             ALL_BEST_MUSIC, ALL_MUSICS, PLAYLIST, ARTIST ->{
-                model.seachData.value = ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.searchMusics(context!!,query),model.pathOfPochetteAlbum)
+                model.seachData.value = ProviderUtils.buildListOfMusicWithCursor(ProviderUtils.searchMusics(context!!,query),model.pathOfPochetteAlbum,favoriteSongsId = favoriteSongsId)
             }
 
             ALL_ALBUM ->{
@@ -262,23 +267,19 @@ class SimpleDetailFragment : Fragment() {
     private fun configureViewModel() {
         model = MusicsViewModel.getInstance()
 
-        model.actualMusicPlayingState.observe(this, Observer {
+        model.currentMusic.observe(this, Observer {
             when(whatToShow){
                 ALL_BEST_MUSIC, ALL_MUSICS, PLAYLIST, ARTIST ->{
-                    if(it?.currentMusic!=null && it.indexOfPlayingSong!=null){
-                        if(adapter!=null){
-                            (adapter as MusiqueAdapter).setPlayingMusic(it.currentMusic!!,it.indexOfPlayingSong!!)
-                        }
+                    if(adapter!=null){
+                        (adapter as MusiqueAdapter).setPlayingMusic(it)
                     }
                 }
             }
         })
 
         model.seachData.observe(this, Observer {
-            if(it!=null && it.isNotEmpty()){
-                this.data = it
-                configureAdapter()
-            }
+            this.data = it
+            configureAdapter()
         })
 
         when(whatToShow){

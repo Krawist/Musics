@@ -22,6 +22,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.IntegerRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
@@ -34,6 +35,9 @@ import cm.seeds.musics.DataModels.Playlist
 import cm.seeds.musics.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_detail_album.view.*
 import java.io.File
 import java.io.FileNotFoundException
 import java.text.DecimalFormat
@@ -630,4 +634,43 @@ fun chooseAndAddSongsToPlaylist(context: Context, playlists : List<Playlist>, mu
 
         dialogListOfPlaylist.show()
     }
+}
+
+fun addSongToFavorite(context: Context, musique: Musique){
+    val favoriteSongsId = getFavoriteSong(context)
+    if(!favoriteSongsId.contains(musique.idMusique)){
+        favoriteSongsId.add(musique.idMusique)
+        saveFavoriteSong(context,favoriteSongsId)
+    }
+}
+
+fun removeSongFromFavorite(context: Context, musique: Musique){
+    val favoriteSongsId = getFavoriteSong(context)
+    if(favoriteSongsId.contains(musique.idMusique)){
+        favoriteSongsId.remove(element = musique.idMusique)
+        saveFavoriteSong(context,favoriteSongsId)
+    }
+}
+
+fun getFavoriteSong(context: Context) : MutableList<Int>{
+    val sharedPreferences = context.getSharedPreferences(USER_FAVORITE_SONGS_PREFERENCES_KEY,Context.MODE_PRIVATE)
+    if(sharedPreferences!=null){
+        val stringList = sharedPreferences.getString(USER_FAVORITE_SONGS_PREFERENCES_KEY,null)
+        if(stringList!=null){
+
+            val type = object : TypeToken<MutableList<Int>>(){}.type
+
+            return Gson().fromJson(stringList,type)
+        }
+    }
+
+    return emptyList<Int>().toMutableList()
+}
+
+fun saveFavoriteSong(context: Context, favoriteSongsId : MutableList<Int>){
+    val stringInList = Gson().toJson(favoriteSongsId)
+    val sharedPreferences = context.getSharedPreferences(USER_FAVORITE_SONGS_PREFERENCES_KEY,Context.MODE_PRIVATE)
+    sharedPreferences.edit()
+        .putString(USER_FAVORITE_SONGS_PREFERENCES_KEY,stringInList)
+        .apply()
 }

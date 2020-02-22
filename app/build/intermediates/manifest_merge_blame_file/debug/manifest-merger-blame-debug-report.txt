@@ -37,86 +37,87 @@
 22-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:13:9-54
 23        android:supportsRtl="true"
 23-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:14:9-35
-24        android:theme="@style/AppTheme" >
-24-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:15:9-40
-25        <service
-25-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:17:9-30:19
-26            android:name="cm.seeds.musics.PlayerService"
-26-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:18:13-42
-27            android:enabled="true"
-27-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:19:13-35
-28            android:exported="true" >
-28-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:20:13-36
-29            <intent-filter>
-29-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:22:13-24:29
-30                <action android:name="android.media.browse.MediaBrowserServiceCompat" />
-30-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:23:17-89
-30-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:23:25-86
-31            </intent-filter>
-32            <intent-filter>
-32-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:26:13-28:29
-33                <action android:name="android.intent.action.MEDIA_BUTTON" />
-33-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:17-77
-33-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:25-74
-34            </intent-filter>
-35        </service>
-36
-37        <receiver android:name="androidx.media.session.MediaButtonReceiver" >
-37-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:32:9-36:20
-37-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:32:19-76
-38            <intent-filter>
-38-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:26:13-28:29
-39                <action android:name="android.intent.action.MEDIA_BUTTON" />
-39-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:17-77
-39-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:25-74
-40            </intent-filter>
-41        </receiver>
-42
-43        <activity android:name="cm.seeds.musics.Activities.MainActivity" >
-43-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:38:9-50:20
-43-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:38:19-58
-44            <intent-filter>
-44-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:39:13-42:29
-45                <action android:name="android.intent.action.MAIN" />
-45-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:40:17-69
-45-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:40:25-66
-46
-47                <category android:name="android.intent.category.LAUNCHER" />
-47-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:41:17-77
-47-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:41:27-74
-48            </intent-filter>
-49            <intent-filter>
-49-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:43:13-49:29
-50                <action android:name="android.intent.action.VIEW" />
-50-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:44:17-68
-50-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:44:25-66
-51
-52                <category android:name="android.intent.category.DEFAULT" />
-52-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:45:17-75
-52-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:45:27-73
-53
-54                <data android:scheme="content" />
-54-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:17-49
-54-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:23-47
-55                <data android:scheme="file" />
+24        android:testOnly="true"
+25        android:theme="@style/AppTheme" >
+25-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:15:9-40
+26        <service
+26-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:17:9-30:19
+27            android:name="cm.seeds.musics.PlayerService"
+27-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:18:13-42
+28            android:enabled="true"
+28-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:19:13-35
+29            android:exported="true" >
+29-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:20:13-36
+30            <intent-filter>
+30-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:22:13-24:29
+31                <action android:name="android.media.browse.MediaBrowserServiceCompat" />
+31-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:23:17-89
+31-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:23:25-86
+32            </intent-filter>
+33            <intent-filter>
+33-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:26:13-28:29
+34                <action android:name="android.intent.action.MEDIA_BUTTON" />
+34-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:17-77
+34-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:25-74
+35            </intent-filter>
+36        </service>
+37
+38        <receiver android:name="androidx.media.session.MediaButtonReceiver" >
+38-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:32:9-36:20
+38-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:32:19-76
+39            <intent-filter>
+39-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:26:13-28:29
+40                <action android:name="android.intent.action.MEDIA_BUTTON" />
+40-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:17-77
+40-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:27:25-74
+41            </intent-filter>
+42        </receiver>
+43
+44        <activity android:name="cm.seeds.musics.Activities.MainActivity" >
+44-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:38:9-50:20
+44-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:38:19-58
+45            <intent-filter>
+45-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:39:13-42:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:40:17-69
+46-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:40:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:41:17-77
+48-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:41:27-74
+49            </intent-filter>
+50            <intent-filter>
+50-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:43:13-49:29
+51                <action android:name="android.intent.action.VIEW" />
+51-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:44:17-68
+51-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:44:25-66
+52
+53                <category android:name="android.intent.category.DEFAULT" />
+53-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:45:17-75
+53-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:45:27-73
+54
+55                <data android:scheme="content" />
 55-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:17-49
 55-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:23-47
-56                <data android:mimeType="audio/*" />
+56                <data android:scheme="file" />
 56-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:17-49
-56-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:48:23-49
-57            </intent-filter>
-58        </activity>
-59
-60        <provider
-60-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
-61            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-61-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
-62            android:authorities="cm.seeds.musics.lifecycle-process"
-62-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
-63            android:exported="false"
-63-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
-64            android:multiprocess="true" />
-64-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
-65    </application>
-66
-67</manifest>
+56-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:23-47
+57                <data android:mimeType="audio/*" />
+57-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:46:17-49
+57-->C:\Users\ASUS\Documents\MesProjets\AndroidStudioProjects\Musics\app\src\main\AndroidManifest.xml:48:23-49
+58            </intent-filter>
+59        </activity>
+60
+61        <provider
+61-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:23:9-27:43
+62            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+62-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:24:13-79
+63            android:authorities="cm.seeds.musics.lifecycle-process"
+63-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:25:13-69
+64            android:exported="false"
+64-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:26:13-37
+65            android:multiprocess="true" />
+65-->[androidx.lifecycle:lifecycle-process:2.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\62cbc00fb88892ddea3baf4153ed9135\jetified-lifecycle-process-2.1.0\AndroidManifest.xml:27:13-40
+66    </application>
+67
+68</manifest>

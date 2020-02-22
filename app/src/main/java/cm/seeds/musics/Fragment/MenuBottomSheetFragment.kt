@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cm.seeds.musics.Activities.MainActivity
 import cm.seeds.musics.Adapter.MusiqueAdapter
+import cm.seeds.musics.DataModels.Album
+import cm.seeds.musics.DataModels.Artiste
 import cm.seeds.musics.DataModels.Musique
+import cm.seeds.musics.DataModels.Playlist
 import cm.seeds.musics.Helper.chooseAndAddSongsToPlaylist
 import cm.seeds.musics.Helper.deleteMusics
 import cm.seeds.musics.Helper.shareMusics
@@ -35,6 +38,7 @@ class MenuBottomSheetFragment(
 )  : BottomSheetDialogFragment(){
 
     private var layoutContainer : LinearLayout? = null
+    private var nameSelectedItem : TextView? = null
     private var adapter : MusiqueAdapter? = null
     private var recyclerviewPlayingList : RecyclerView? = null
 
@@ -72,8 +76,23 @@ class MenuBottomSheetFragment(
             dialog.setContentView(rootView)
 
             layoutContainer = rootView.findViewById<LinearLayout>(R.id.linearlayout_menu_bottom_sheet_menu_item_container)
+            nameSelectedItem = rootView.findViewById(R.id.textview_menu_bottom_sheet_selected_item_name)
             layoutContainer?.removeAllViews()
             for (menuItemId in params){
+                when {
+                    listOfData[itemPosition] is Musique -> {
+                        nameSelectedItem?.text = (listOfData[itemPosition] as Musique).titreMusique
+                    }
+                    listOfData[itemPosition] is Album -> {
+                        nameSelectedItem?.text = (listOfData[itemPosition] as Album).nomAlbum
+                    }
+                    listOfData[itemPosition] is Playlist -> {
+                        nameSelectedItem?.text = (listOfData[itemPosition] as Playlist).nomPlaylist
+                    }
+                    listOfData[itemPosition] is Artiste -> {
+                        nameSelectedItem?.text = (listOfData[itemPosition] as Artiste).nomArtiste
+                    }
+                }
                 getMenuItemViaMenuId(menuItemId)
             }
         }else{
@@ -275,9 +294,9 @@ class MenuBottomSheetFragment(
         adapter?.setList(currentPlayingList)
     }
 
-    fun setPlayingMusic(currentMusic: Musique, indexOfPlayingSong: Int) {
+    fun setPlayingMusic(currentMusic: Musique) {
         if(adapter!=null){
-            adapter?.setPlayingMusic(currentMusic, indexOfPlayingSong)
+            adapter?.setPlayingMusic(currentMusic)
         }
     }
 
