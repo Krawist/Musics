@@ -1,0 +1,2 @@
+# Musics
+It is an audio player developed in kotlin offering the basic functionality of audio players (listening to music, creating your own playlist (s), deleting sounds, see details of these ...). In addition to that it offers other interesting functions such as -the offline generation of lyrics of all music that the user desires -Make play-back tracks. -Share his creations. -Join the creations of other users, participate and / or give their opinion (comment, like, sharing).
